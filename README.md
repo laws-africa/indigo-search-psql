@@ -23,7 +23,7 @@ Include the URLs in your `urls.py`:
 
 ```python
 urlpatterns = [
-    path('api/', include('indigo_search_psql.content_api.v2.urls')),
+    path('api/', include('indigo_search_psql.urls')),
     path('', include('indigo.urls')),
 ]
 ```
