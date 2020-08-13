@@ -6,7 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
-from indigo_api.views.documents import SearchView, DocumentViewMixin
+from indigo_api.views.documents import DocumentViewMixin
 from indigo_api.views.misc import DEFAULT_PERMS
 from indigo_content_api.v2.serializers import PublishedDocumentSerializer
 from indigo_content_api.v2.views import PlaceAPIBase
@@ -28,7 +28,6 @@ class PublishedDocumentSearchView(PlaceAPIBase, ListAPIView):
     scope = 'works'
 
     def determine_place(self):
-        # TODO: this view should support localities, too
         try:
             self.country = Country.for_code(self.kwargs['country'])
         except Country.DoesNotExist:

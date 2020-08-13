@@ -27,3 +27,11 @@ class SearchableDocument(models.Model):
         searchable.update_search_text()
         searchable.save()
 
+    @classmethod
+    def delete_for_document(cls, document):
+        """ The document has been soft deleted, delete the search entry.
+        """
+        searchable = cls.objects.filter(document=document).first()
+        if searchable:
+            searchable.delete()
+
