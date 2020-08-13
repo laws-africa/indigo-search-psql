@@ -1,4 +1,3 @@
-from countries_plus.models import Country
 from django.contrib.postgres.search import SearchQuery
 from django.db.models import F
 from django.http import Http404
@@ -6,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
+from indigo_api.models import Country
 from indigo_api.views.documents import DocumentViewMixin
 from indigo_api.views.misc import DEFAULT_PERMS
 from indigo_content_api.v2.serializers import PublishedDocumentSerializer

@@ -16,7 +16,7 @@ class SearchableDocument(models.Model):
         migration 0032.
         """
         xpath = '|'.join('//a:%s//text()' % c for c in ['coverPage', 'preface', 'preamble', 'body', 'mainBody', 'conclusions'])
-        texts = self.doc.root.xpath(xpath, namespaces={'a': self.document.doc.namespace})
+        texts = self.document.doc.root.xpath(xpath, namespaces={'a': self.document.doc.namespace})
         self.search_text = ' '.join(texts)
 
     @classmethod
