@@ -5,7 +5,8 @@ from django.contrib.postgres.search import SearchVectorField
 class SearchableDocument(models.Model):
     """ Additional model for supporting full text search on an Indigo document.
     """
-    document = models.ForeignKey('indigo_api.document', related_name='+', on_delete=models.CASCADE)
+    document = models.ForeignKey('indigo_api.document', related_name='searchable_document', on_delete=models.CASCADE)
+    title = models.CharField(max_length=1024, null=False)
     search_text = models.TextField(null=True, blank=True)
     search_vector = SearchVectorField(null=True)
 
@@ -18,6 +19,7 @@ class SearchableDocument(models.Model):
         xpath = '|'.join('//a:%s//text()' % c for c in ['coverPage', 'preface', 'preamble', 'body', 'mainBody', 'conclusions'])
         texts = self.document.doc.root.xpath(xpath, namespaces={'a': self.document.doc.namespace})
         self.search_text = ' '.join(texts)
+        self.title = self.document.title
 
     @classmethod
     def create_or_update(cls, document):

@@ -42,7 +42,7 @@ class PublishedDocumentSearchView(PlaceAPIBase, ListAPIView):
         queryset = super().filter_queryset(queryset)
 
         query = SearchQuery(self.request.query_params.get('q'))
-        queryset = queryset.filter(search_vector=query)
+        queryset = queryset.filter(searchable_document__search_vector=query)
 
         if self.scope == 'works':
             # Search for distinct works, which means getting the latest

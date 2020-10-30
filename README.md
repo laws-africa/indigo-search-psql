@@ -19,11 +19,42 @@ INSTALLED_APPS = [
 ]
 ```
 
-Include the URLs in your `urls.py`:
+Include the URLs in your `urls.py` after the indigo URLS:
 
 ```python
 urlpatterns = [
-    path('api/', include('indigo_search_psql.urls')),
     path('', include('indigo.urls')),
+    path('api/', include('indigo_search_psql.urls')),
 ]
 ```
+
+Run migrations to setup the database:
+
+```
+python manage.py migrate indigo_search_psql
+```
+
+And finally re-index all existing documents. This only needs to be done once. After this, updated documents
+are re-indexed automatically.
+
+```
+python manage.py index_for_psql_search
+```
+
+## URLs
+
+This adds a new URL to the API:
+
+    GET /api/v2/search/<country>?q=<search-term>
+
+* Where `<country>` is a two-letter country code
+* Parameter ``q``: the search string
+* Content types: JSON
+
+This API searches for works in a country. It returns all works that match the
+search term in either their title or their body.  Results are returned in
+search rank order.  Each result also has a numeric ``_rank`` and an HTML
+``_snippet`` with highlighted results.
+
+If more than one expression of a particular work matches the search, then only
+the most recent matching expression is returned.
