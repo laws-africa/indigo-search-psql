@@ -59,8 +59,8 @@ class PublishedDocumentSearchView(PlaceAPIBase, ListAPIView):
         # or doing it only on the required document ids, doesn't seem to have an impact.
         queryset = queryset \
             .annotate(
-            rank=SearchRankCD(F('search_vector'), query),
-            snippet=Headline(F('search_text'), query, options='StartSel=<mark>, StopSel=</mark>')) \
+            rank=SearchRankCD(F('searchable_document__search_vector'), query),
+            snippet=Headline(F('searchable_document__search_text'), query, options='StartSel=<mark>, StopSel=</mark>')) \
             .order_by('-rank')
 
         return queryset
