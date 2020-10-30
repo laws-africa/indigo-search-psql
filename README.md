@@ -58,3 +58,9 @@ search rank order.  Each result also has a numeric ``_rank`` and an HTML
 
 If more than one expression of a particular work matches the search, then only
 the most recent matching expression is returned.
+
+## License and Copyright
+
+The project is licensed under a [GNU GPL 3 license](LICENSE).
+
+Indigo is Copyright 2015-2020 AfricanLII.
