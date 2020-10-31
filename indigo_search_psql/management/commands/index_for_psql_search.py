@@ -1,10 +1,7 @@
 # coding=utf-8
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand
 
-from indigo.plugins import plugins
-from indigo_api.models import Country, PublicationDocument, Task, Work, Workflow, Document
+from indigo_api.models import Country, Document
 from indigo_search_psql.models import SearchableDocument
 
 
@@ -20,7 +17,7 @@ class Command(BaseCommand):
             country = Country.for_code(options.get('country'))
             self.stdout.write(self.style.NOTICE(f"Indexing {country} only"))
 
-        documents = Document.objects.published().order_by('-pk')
+        documents = Document.objects.undeleted().published().order_by('-pk')
         if country:
             documents = documents.filter(work__country=country)
 
