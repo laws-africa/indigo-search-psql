@@ -59,6 +59,16 @@ search rank order.  Each result also has a numeric ``_rank`` and an HTML
 If more than one expression of a particular work matches the search, then only
 the most recent matching expression is returned.
 
+## Development
+
+1. Clone this repo
+2. Setup and activate a python3 virtualenv
+3. Install dependencies: `pip install -e .`
+
+### Running tests
+
+Use `python runtests.py` to run tests.
+
 ## License and Copyright
 
 The project is licensed under a [GNU GPL 3 license](LICENSE).
