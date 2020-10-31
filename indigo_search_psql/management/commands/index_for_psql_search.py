@@ -20,7 +20,9 @@ class Command(BaseCommand):
             country = Country.for_code(options.get('country'))
             self.stdout.write(self.style.NOTICE(f"Indexing {country} only"))
 
-        documents = Document.objects.published().filter(work__country=country).order_by('-pk')
+        documents = Document.objects.published().order_by('-pk')
+        if country:
+            documents = documents.filter(work__country=country)
 
         for doc in documents:
             self.stdout.write(self.style.NOTICE(f"Indexing document #{doc.pk}"))
