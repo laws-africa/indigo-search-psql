@@ -3,11 +3,9 @@ from django.db.models import F
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
 from indigo_api.models import Country
 from indigo_api.views.documents import DocumentViewMixin
-from indigo_api.views.misc import DEFAULT_PERMS
 from indigo_content_api.v2.serializers import PublishedDocumentSerializer
 from indigo_content_api.v2.views import PlaceAPIBase
 from indigo_search_psql.utils import SearchRankCD, Headline, SearchPagination
@@ -20,7 +18,6 @@ class PublishedDocumentSearchView(PlaceAPIBase, ListAPIView):
     serializer_class = PublishedDocumentSerializer
     pagination_class = SearchPagination
     filter_backends = (DjangoFilterBackend,)
-    permission_classes = DEFAULT_PERMS + (DjangoModelPermissionsOrAnonReadOnly,)
     filter_fields = {
         'frbr_uri': ['exact', 'startswith'],
     }
