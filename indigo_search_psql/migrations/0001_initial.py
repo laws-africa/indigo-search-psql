@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('indigo_api', '0135_auto_20201023_1407'),
+        ('indigo_api', '0001_squashed_0137'),
     ]
 
     operations = [
